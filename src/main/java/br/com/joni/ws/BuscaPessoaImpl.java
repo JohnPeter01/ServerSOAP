@@ -5,6 +5,7 @@ import javax.jws.WebService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 import br.com.joni.config.BuscaService;
@@ -15,11 +16,18 @@ public class BuscaPessoaImpl implements BuscaPessoa{
 
 	@Autowired
 	BuscaService service;
-	@Autowired
-	ApplicationContext context;
+
+//	@Autowired
+//	ApplicationContext context;
 	
 	@WebMethod
 	public String buscaPessoa(String nome) {
+		
+		AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext();
+		
+		context.refresh();
+		
+		context.register(BuscaService.class);
 		
 		service = context.getBean(BuscaService.class);
 		
